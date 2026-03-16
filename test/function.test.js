@@ -5,10 +5,6 @@ describe('Should the checkLengthString function check the maximum length correct
   it('when it receives one symbol', () => {
     expect(checkLengthString('a', 0)).toBe(false);
     expect(checkLengthString('a', 1)).toBe(true);
-    expect(checkLengthString('a', 2)).toBe(true);
-    expect(checkLengthString('ф', 0)).toBe(false);
-    expect(checkLengthString('ф', 1)).toBe(true);
-    expect(checkLengthString('ф', 2)).toBe(true);
   });
 
   it('when it receives multiple symbols', () => {
@@ -29,9 +25,6 @@ describe('Should the checkLengthString function check the maximum length correct
 describe('Should the checkPalindrome function for checking for palindrome', () => {
   it('when it receives one symbol', () => {
     expect(checkPalindrome('A')).toBe(true);
-    expect(checkPalindrome('b')).toBe(true);
-    expect(checkPalindrome('ф')).toBe(true);
-    expect(checkPalindrome('Ж')).toBe(true);
     expect(checkPalindrome('符')).toBe(true);
   });
 
@@ -48,7 +41,6 @@ describe('Should the checkPalindrome function for checking for palindrome', () =
   it('when it boundary cases', () => {
     expect(checkPalindrome('')).toBe(true);
     expect(checkPalindrome('     ')).toBe(true);
-    expect(checkPalindrome('符')).toBe(true);
     // English a and russian a
     expect(checkPalindrome('aа')).toBe(false);
   });

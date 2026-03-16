@@ -5,7 +5,7 @@
  * @return {boolean} - Если длина строки меньше или равна параметру "length", вернуть "true", иначе "false".
  */
 
-export const checkLengthString = (string = '', length = -1) => string.length <= length;
+export const checkLengthString = (string, length) => string.length <= length;
 
 /**
  * Функция для проверки на палиндромность - последовательность символов одинакова, при чтении, и справа налево и слева направо.
@@ -16,14 +16,19 @@ export const checkLengthString = (string = '', length = -1) => string.length <= 
 
 export const checkPalindrome = (string) => {
   let clean = string;
+
   if (typeof string === 'string') {
     clean = string.replaceAll(' ', '').toLowerCase();
   }
-  for (let i = 0; i < Math.floor(clean.length / 2); i ++) {
+
+  const HALF_LENGTH = Math.floor(clean.length / 2);
+
+  for (let i = 0; i < HALF_LENGTH; i ++) {
     if (clean[i] !== clean[clean.length - 1 - i]) {
       return false;
     }
   }
+
   return true;
 };
 
@@ -37,10 +42,12 @@ export const checkPalindrome = (string) => {
 export const extractNumbers = (string) => {
   const str = String(string);
   let number = '';
+
   for (let i = 0; i < str.length; i++) {
     if (!isNaN(parseInt(str[i], 10))) {
       number += str[i].toString();
     }
   }
+
   return parseInt(number, 10);
 };
