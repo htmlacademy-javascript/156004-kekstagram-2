@@ -2,7 +2,7 @@
  * Функция для проверки длины строки.
  * @param {string} string - Передаваемая строка.
  * @param {number} length - Максимальная длина строки.
- * @return {boolean} - Если длина строки меньше или равна параметру "length", вернуть "true", иначе "false".
+ * @returns {boolean} - Если длина строки меньше или равна параметру "length", вернуть "true", иначе "false".
  */
 
 export const checkLengthString = (string, length) => string.length <= length;
@@ -11,7 +11,7 @@ export const checkLengthString = (string, length) => string.length <= length;
  * Функция для проверки на палиндромность - последовательность символов одинакова, при чтении, и справа налево и слева направо.
  * Регистр не учитывается.
  * @param {string | number} string - Передаваемая строка.
- * @return {boolean}
+ * @returns {boolean}
  */
 
 export const checkPalindrome = (string) => {
@@ -36,7 +36,7 @@ export const checkPalindrome = (string) => {
  * Функцию для извлечения из строки цифр от 0 до 9.
  * Результат вернуть одним, целым, положительным числом. Если в строке нет цифр - вернуть NaN.
  * @param {string | number} string - Передаваемая строка.
- * @return {number}
+ * @returns {number}
  */
 
 export const extractNumbers = (string) => {
