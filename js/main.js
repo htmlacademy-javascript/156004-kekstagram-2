@@ -1,15 +1,11 @@
 /**
- * @typedef {() => number} GeneratorFunction
- */
-
-/**
  * @typedef {() => (number | null)} NullableGeneratorFunction
  */
 
 /**
  * @typedef {Object} CommentInfoDeps
  * @property {NullableGeneratorFunction} commentIdGen
- * @property {GeneratorFunction} avatarIdGen
+ * @property {() => number} avatarIdGen
  */
 
 /**
@@ -18,7 +14,7 @@
  * @property {NullableGeneratorFunction} urlGen
  * @property {NullableGeneratorFunction} likesGen
  * @property {NullableGeneratorFunction} commentIdGen
- * @property {GeneratorFunction} avatarIdGen
+ * @property {() => number} avatarIdGen
  */
 
 /**
@@ -80,16 +76,16 @@ const NAMES = [
   'Татьяна'
 ];
 
-export const COUNT_PHOTOS = 25;
+const COUNT_PHOTOS = 25;
 const MAX_COMMENTS_PER_PHOTO = 30;
 const MIN_LIKES = 15;
 const MAX_LIKES = 200;
 const MIN_NUMBER_AVATAR = 1;
 const MAX_NUMBER_AVATAR = 6;
 const AVATAR_PATH = 'img/avatar-';
-export const PHOTO_PATH = 'photos/';
+const PHOTO_PATH = 'photos/';
 const AVATAR_EXTENSION = '.svg';
-export const PHOTO_EXTENSION = '.jpg';
+const PHOTO_EXTENSION = '.jpg';
 
 /**
  * Функция для генерации случайного положительного числа в указанном диапазоне.
@@ -144,7 +140,7 @@ const defaultDeps = {
   * @returns {A}
  */
 
-export const getRandomArrayElement = (elements) => elements[getRandomInteger(0, elements.length - 1)];
+const getRandomArrayElement = (elements) => elements[getRandomInteger(0, elements.length - 1)];
 
 /**
  * Создает объект комментария
@@ -152,7 +148,7 @@ export const getRandomArrayElement = (elements) => elements[getRandomInteger(0, 
  * @returns {Comment}
  */
 
-export const createCommentInfo = ({commentIdGen, avatarIdGen}) => {
+const createCommentInfo = ({commentIdGen, avatarIdGen}) => {
   const id = commentIdGen();
   const avatarId = avatarIdGen();
 
@@ -174,7 +170,7 @@ export const createCommentInfo = ({commentIdGen, avatarIdGen}) => {
  * @returns {Photo}
  */
 
-export const createPhotoInfo = (deps = defaultDeps) => {
+const createPhotoInfo = (deps = defaultDeps) => {
   const { idGen, urlGen, likesGen, commentIdGen, avatarIdGen } = deps;
 
   const id = idGen();
