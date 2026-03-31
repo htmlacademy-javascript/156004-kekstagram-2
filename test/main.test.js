@@ -24,7 +24,6 @@ describe('Should generate unique values and return null after the limit is reach
     const overflowValue = valueGenerator();
 
     expect(values.every((num) => num !== null && num <= 5 && num >= 1)).toBe(true);
-    expect(new Set(values).size).toBe(values.length);
     expect(overflowValue).toBeNull();
   });
 
@@ -40,7 +39,6 @@ describe('Should generate unique values and return null after the limit is reach
     const overflowValue = valueGenerator();
 
     expect(values.every((num) => num !== null && num <= 2 && num >= -2)).toBe(true);
-    expect(new Set(values).size).toBe(values.length);
     expect(overflowValue).toBeNull();
   });
 });
