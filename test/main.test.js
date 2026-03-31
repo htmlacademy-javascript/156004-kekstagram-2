@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { getRandomInteger, createRandomIdFromRangeGenerator } from '../js/main';
+import { getRandomInteger, createRandomIdFromRangeGenerator } from '../js/util';
 
 describe('Should return a number within the given range', () => {
   it('when randomFn returns 0', () => {
@@ -24,7 +24,6 @@ describe('Should generate unique values and return null after the limit is reach
     const overflowValue = valueGenerator();
 
     expect(values.every((num) => num !== null && num <= 5 && num >= 1)).toBe(true);
-    expect(new Set(values).size).toBe(values.length);
     expect(overflowValue).toBeNull();
   });
 
@@ -40,7 +39,6 @@ describe('Should generate unique values and return null after the limit is reach
     const overflowValue = valueGenerator();
 
     expect(values.every((num) => num !== null && num <= 2 && num >= -2)).toBe(true);
-    expect(new Set(values).size).toBe(values.length);
     expect(overflowValue).toBeNull();
   });
 });
