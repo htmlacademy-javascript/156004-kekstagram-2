@@ -5,7 +5,7 @@
  * @returns {boolean} - Если длина строки меньше или равна параметру "length", вернуть "true", иначе "false".
  */
 
-export const checkLengthString = (string, length) => string.length <= length;
+const checkLengthString = (string, length) => string.length <= length;
 
 /**
  * Функция для проверки на палиндромность - последовательность символов одинакова, при чтении, и справа налево и слева направо.
@@ -14,7 +14,7 @@ export const checkLengthString = (string, length) => string.length <= length;
  * @returns {boolean}
  */
 
-export const checkPalindrome = (string) => {
+const checkPalindrome = (string) => {
   let clean = string;
 
   if (typeof string === 'string') {
@@ -39,7 +39,7 @@ export const checkPalindrome = (string) => {
  * @returns {number}
  */
 
-export const extractNumbers = (string) => {
+const extractNumbers = (string) => {
   const str = String(string);
   let number = '';
 
@@ -51,3 +51,5 @@ export const extractNumbers = (string) => {
 
   return parseInt(number, 10);
 };
+
+export {checkLengthString, checkPalindrome, extractNumbers};

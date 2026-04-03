@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { getRandomInteger, createRandomIdFromRangeGenerator } from '../js/main';
+import { getRandomInteger, createRandomIdFromRangeGenerator } from '../js/util';
 
 describe('Should return a number within the given range', () => {
   it('when randomFn returns 0', () => {
