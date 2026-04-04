@@ -88,7 +88,7 @@ describe('Should the extractNumbers function for extracting numbers from 0 to 9'
 });
 
 describe ('Should check if a meeting fits within working hours', () => {
-  it('when the meeting is within working hours', () => {
+  it('when the meeting is within working hours.', () => {
     expect(checkTime('08:00', '17:30', '14:00', 90)).toBe(true);
     expect(checkTime('8:0', '10:0', '8:0', 120)).toBe(true);
   });

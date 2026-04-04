@@ -53,7 +53,7 @@ const extractNumbers = (string) => {
 };
 
 /**
- * Функция проверяет, что время встречи попадает в промежуток рабочего дня.
+ * Функция проверяет, что переданное время встречи попадает в промежуток рабочего дня.
  * @param {string} workStart
  * @param {string} workEnd
  * @param {string} meetingStart
