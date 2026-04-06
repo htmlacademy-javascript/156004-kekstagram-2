@@ -1,5 +1,5 @@
 import {describe, expect, it} from 'vitest';
-import {checkLengthString, checkPalindrome, extractNumbers, checkTime} from '../js/functions';
+import {checkLengthString, checkPalindrome, extractNumbers} from '../js/functions';
 
 describe('Should the checkLengthString function check the maximum length correctly', () => {
   it('when it receives one symbol', () => {
