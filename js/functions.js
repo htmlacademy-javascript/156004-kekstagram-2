@@ -52,4 +52,28 @@ const extractNumbers = (string) => {
   return parseInt(number, 10);
 };
 
-export {checkLengthString, checkPalindrome, extractNumbers};
+/**
+ * Функция проверяет, что переданное время встречи попадает в промежуток рабочего дня.
+ * @param {string} workStart
+ * @param {string} workEnd
+ * @param {string} meetingStart
+ * @param {number} meetingDuration
+ * @returns {boolean}
+ */
+
+const checkTime = (workStart, workEnd, meetingStart, meetingDuration) => {
+  const toMinutes = (time) => {
+    const [hours, minutes] = time.split(':');
+    return Number(hours) * 60 + Number(minutes);
+  };
+
+  const workStartMinutes = toMinutes(workStart);
+  const workEndMinutes = toMinutes(workEnd);
+  const meetingStartMinutes = toMinutes(meetingStart);
+  const meetingEndMinutes = meetingStartMinutes + meetingDuration;
+
+  return meetingStartMinutes >= workStartMinutes &&
+    meetingEndMinutes <= workEndMinutes;
+};
+
+export {checkLengthString, checkPalindrome, extractNumbers, checkTime};

@@ -86,3 +86,16 @@ describe('Should the extractNumbers function for extracting numbers from 0 to 9'
     expect(extractNumbers('     ')).toBe(NaN);
   });
 });
+
+describe ('Should check if a meeting fits within working hours', () => {
+  it('when the meeting is within working hours.', () => {
+    expect(checkTime('08:00', '17:30', '14:00', 90)).toBe(true);
+    expect(checkTime('8:0', '10:0', '8:0', 120)).toBe(true);
+  });
+
+  it('when the meeting is outside working hours', () => {
+    expect(checkTime('08:00', '14:30', '14:00', 90)).toBe(false);
+    expect(checkTime('14:00', '17:30', '08:0', 90)).toBe(false);
+    expect(checkTime('8:00', '17:30', '08:00', 900)).toBe(false);
+  });
+});
