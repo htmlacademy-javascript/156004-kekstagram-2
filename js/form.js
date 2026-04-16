@@ -1,3 +1,5 @@
+import {initScale, resetScale} from './scale.js';
+import {initEffects, resetEffects} from './effects.js';
 import {validateForm, resetValidation} from './validation.js';
 
 const body = document.body;
@@ -24,6 +26,8 @@ const closeUploadForm = () => {
   uploadOverlay.classList.add('hidden');
   body.classList.remove('modal-open');
   uploadForm.reset();
+  resetScale();
+  resetEffects();
   resetValidation();
 };
 
@@ -57,6 +61,9 @@ const onFormSubmit = (evt) => {
 };
 
 const initForm = () => {
+  initScale();
+  initEffects();
+
   uploadInput.addEventListener('change', onUploadInputChange);
   closeButton.addEventListener('click', onCloseButtonClick);
   document.addEventListener('keydown', onDocumentKeydown);
