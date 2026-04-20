@@ -1,6 +1,8 @@
 import {initScale, resetScale} from './scale.js';
 import {initEffects, resetEffects} from './effects.js';
 import {validateForm, resetValidation} from './validation.js';
+import {sendPicture} from './api.js';
+import {showSuccessMessage, showErrorMessage} from './messages.js';
 
 const body = document.body;
 const uploadForm = document.querySelector('.img-upload__form');
@@ -9,6 +11,7 @@ const uploadOverlay = uploadForm.querySelector('.img-upload__overlay');
 const closeButton = uploadForm.querySelector('.img-upload__cancel');
 const hashtagsField = uploadForm.querySelector('.text__hashtags');
 const descriptionField = uploadForm.querySelector('.text__description');
+const submitButton = uploadForm.querySelector('.img-upload__submit');
 
 const isTextFieldFocused = () =>
   document.activeElement === hashtagsField ||
@@ -29,6 +32,16 @@ const closeUploadForm = () => {
   resetScale();
   resetEffects();
   resetValidation();
+};
+
+const blockSubmitButton = () => {
+  submitButton.disabled = true;
+  submitButton.textContent = 'Опубликовываю...';
+};
+
+const unblockSubmitButton = () => {
+  submitButton.disabled = false;
+  submitButton.textContent = 'Опубликовать';
 };
 
 const onDocumentKeydown = (evt) => {
@@ -52,11 +65,24 @@ const onTextFieldKeydown = (evt) => {
   }
 };
 
-const onFormSubmit = (evt) => {
+const onFormSubmit = async (evt) => {
+  evt.preventDefault();
+
   const isValid = validateForm();
 
   if (!isValid) {
-    evt.preventDefault();
+    return;
+  }
+
+  try {
+    blockSubmitButton();
+    await sendPicture(new FormData(uploadForm));
+    closeUploadForm();
+    showSuccessMessage();
+  } catch {
+    showErrorMessage();
+  } finally {
+    unblockSubmitButton();
   }
 };
 

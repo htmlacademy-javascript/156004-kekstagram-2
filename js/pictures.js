@@ -1,13 +1,13 @@
-import {photoCollection} from './data.js';
+import {loadPictures} from './api.js';
+import {showDataError} from './data-error.js';
 import {openBigPicture} from './popup-big-picture.js';
 
 const picturesContainer = document.querySelector('.pictures');
 const pictureTemplate = document.querySelector('#picture')
   .content
   .querySelector('.picture');
-const picturesContainerFragment = document.createDocumentFragment();
 
-const createPicture = ({url, description, comments, likes, id}) => {
+const createPicture = ({url, description, comments, likes}) => {
   const picture = pictureTemplate.cloneNode(true);
   const img = picture.querySelector('.picture__img');
   const countLikes = picture.querySelector('.picture__likes');
@@ -18,33 +18,33 @@ const createPicture = ({url, description, comments, likes, id}) => {
   countLikes.textContent = likes;
   countComments.textContent = comments.length;
 
-  picture.dataset.pictureId = id;
-
   return picture;
 };
 
-photoCollection.forEach((photo) => {
-  const picture = createPicture(photo);
-  picturesContainerFragment.appendChild(picture);
-});
+const renderPictures = (pictures) => {
+  const picturesContainerFragment = document.createDocumentFragment();
 
-picturesContainer.appendChild(picturesContainerFragment);
+  pictures.forEach((pictureData) => {
+    const picture = createPicture(pictureData);
 
-picturesContainer.addEventListener('click', (evt) => {
-  const picture = evt.target.closest('.picture');
+    picture.addEventListener('click', (evt) => {
+      evt.preventDefault();
+      openBigPicture(pictureData);
+    });
 
-  if (!picture) {
-    return;
+    picturesContainerFragment.appendChild(picture);
+  });
+
+  picturesContainer.appendChild(picturesContainerFragment);
+};
+
+const initPictures = async () => {
+  try {
+    const pictures = await loadPictures();
+    renderPictures(pictures);
+  } catch {
+    showDataError();
   }
+};
 
-  evt.preventDefault();
-
-  const pictureId = Number(picture.dataset.pictureId);
-  const currentPhoto = photoCollection.find((photo) => photo.id === pictureId);
-
-  if (!currentPhoto) {
-    return;
-  }
-
-  openBigPicture(currentPhoto);
-});
+export {initPictures};
