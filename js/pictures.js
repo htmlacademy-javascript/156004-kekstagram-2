@@ -1,5 +1,3 @@
-import {loadPictures} from './api.js';
-import {showDataError} from './data-error.js';
 import {openBigPicture} from './popup-big-picture.js';
 
 const picturesContainer = document.querySelector('.pictures');
@@ -7,7 +5,9 @@ const pictureTemplate = document.querySelector('#picture')
   .content
   .querySelector('.picture');
 
-const createPicture = ({url, description, comments, likes}) => {
+const createPicture = (pictureData) => {
+  const {url, description, comments, likes} = pictureData;
+
   const picture = pictureTemplate.cloneNode(true);
   const img = picture.querySelector('.picture__img');
   const countLikes = picture.querySelector('.picture__likes');
@@ -18,33 +18,30 @@ const createPicture = ({url, description, comments, likes}) => {
   countLikes.textContent = likes;
   countComments.textContent = comments.length;
 
+  picture.addEventListener('click', (evt) => {
+    evt.preventDefault();
+    openBigPicture(pictureData);
+  });
+
   return picture;
 };
 
+const clearPictures = () => {
+  const pictures = picturesContainer.querySelectorAll('.picture');
+  pictures.forEach((picture) => picture.remove());
+};
+
 const renderPictures = (pictures) => {
-  const picturesContainerFragment = document.createDocumentFragment();
+  clearPictures();
+
+  const picturesFragment = document.createDocumentFragment();
 
   pictures.forEach((pictureData) => {
     const picture = createPicture(pictureData);
-
-    picture.addEventListener('click', (evt) => {
-      evt.preventDefault();
-      openBigPicture(pictureData);
-    });
-
-    picturesContainerFragment.appendChild(picture);
+    picturesFragment.append(picture);
   });
 
-  picturesContainer.appendChild(picturesContainerFragment);
+  picturesContainer.append(picturesFragment);
 };
 
-const initPictures = async () => {
-  try {
-    const pictures = await loadPictures();
-    renderPictures(pictures);
-  } catch {
-    showDataError();
-  }
-};
-
-export {initPictures};
+export {renderPictures};

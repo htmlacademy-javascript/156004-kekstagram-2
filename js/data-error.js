@@ -1,16 +1,16 @@
-const DATA_ERROR_SHOW_TIME = 5000;
+const SHOW_TIME = 5000;
+
+const dataErrorTemplate = document.querySelector('#data-error')
+  .content
+  .querySelector('.data-error');
 
 const showDataError = () => {
-  const template = document.querySelector('#data-error')
-    .content
-    .querySelector('.data-error');
-
-  const errorElement = template.cloneNode(true);
-  document.body.append(errorElement);
+  const dataErrorElement = dataErrorTemplate.cloneNode(true);
+  document.body.append(dataErrorElement);
 
   setTimeout(() => {
-    errorElement.remove();
-  }, DATA_ERROR_SHOW_TIME);
+    dataErrorElement.remove();
+  }, SHOW_TIME);
 };
 
 export {showDataError};
