@@ -3,6 +3,7 @@ import {initEffects, resetEffects} from './effects.js';
 import {validateForm, resetValidation} from './validation.js';
 import {sendPicture} from './api.js';
 import {showSuccessMessage, showErrorMessage} from './messages.js';
+import {setImagePreview, resetPreview} from './preview.js';
 
 const body = document.body;
 const uploadForm = document.querySelector('.img-upload__form');
@@ -20,19 +21,29 @@ const isTextFieldFocused = () =>
 const isUploadFormOpened = () =>
   !uploadOverlay.classList.contains('hidden');
 
-const openUploadForm = () => {
+function onDocumentKeydown(evt) {
+  if (evt.key === 'Escape' && isUploadFormOpened() && !isTextFieldFocused()) {
+    evt.preventDefault();
+    closeUploadForm();
+  }
+}
+
+function openUploadForm() {
   uploadOverlay.classList.remove('hidden');
   body.classList.add('modal-open');
-};
+  document.addEventListener('keydown', onDocumentKeydown);
+}
 
-const closeUploadForm = () => {
+function closeUploadForm() {
   uploadOverlay.classList.add('hidden');
   body.classList.remove('modal-open');
   uploadForm.reset();
   resetScale();
   resetEffects();
   resetValidation();
-};
+  resetPreview();
+  document.removeEventListener('keydown', onDocumentKeydown);
+}
 
 const blockSubmitButton = () => {
   submitButton.disabled = true;
@@ -44,14 +55,14 @@ const unblockSubmitButton = () => {
   submitButton.textContent = 'Опубликовать';
 };
 
-const onDocumentKeydown = (evt) => {
-  if (evt.key === 'Escape' && isUploadFormOpened() && !isTextFieldFocused()) {
-    evt.preventDefault();
-    closeUploadForm();
-  }
-};
-
 const onUploadInputChange = () => {
+  const file = uploadInput.files[0];
+
+  if (!file) {
+    return;
+  }
+
+  setImagePreview(file);
   openUploadForm();
 };
 
@@ -92,7 +103,6 @@ const initForm = () => {
 
   uploadInput.addEventListener('change', onUploadInputChange);
   closeButton.addEventListener('click', onCloseButtonClick);
-  document.addEventListener('keydown', onDocumentKeydown);
 
   hashtagsField.addEventListener('keydown', onTextFieldKeydown);
   descriptionField.addEventListener('keydown', onTextFieldKeydown);
